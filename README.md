@@ -9,9 +9,36 @@
   <img src="https://img.shields.io/badge/License-MIT-amber?style=for-the-badge" alt="License: MIT" />
 </p>
 
-A modern, high-performance commercial product showcase and e-commerce website built with **Astro 5+**, **Tailwind CSS v4**, and **TypeScript**. 
+A modern, high-performance commercial product showcase and e-commerce website built with **Astro 5+**, **Tailwind CSS v4**, and **TypeScript**.
 
 Designed for beverage, food, wellness, and luxury consumer goods brands that need interactive storytelling, high-conversion product showcases, and a fast shopping experience.
+
+---
+
+## 📸 Sample Preview
+
+🔗 **Live Demo**: [**https://astrocommercialshowcase.netlify.app**](https://astrocommercialshowcase.netlify.app)
+
+### 🏠 Home & Dynamic Product Swapper
+![Home Preview](Samples/Home.png)
+
+### 🧃 Flavors & Nutrition Showcase
+![Our Flavors](Samples/Our%20Flavors.png)
+
+### 🌿 Brand Benefits & Pillars
+![Benefits](Samples/Benefits.png)
+
+### 🚜 Farm-to-Bottle Process Timeline
+![Process](Samples/Process.png)
+
+### 🧪 Interactive Match Quiz
+![Match Quiz](Samples/Match%20Quiz.png)
+
+### ⭐ Reviews & Footer
+![Reviews and Footer](Samples/Reviews%20and%20Footer.png)
+
+### 🚨 Themed 404 Error Page
+![404 Error Page](Samples/404.png)
 
 ---
 
@@ -81,6 +108,7 @@ Designed for beverage, food, wellness, and luxury consumer goods brands that nee
 This project is built around a **Single Source of Truth** pattern. You can edit almost all brand copy, products, pricing, features, and links directly inside [`src/data/config.ts`](src/data/config.ts) without touching component markup.
 
 ### 1. Brand Identity & Copy
+
 Open `src/data/config.ts` and modify the top-level brand configuration:
 
 ```typescript
@@ -97,6 +125,7 @@ export const brandConfig = {
 ---
 
 ### 2. Adding or Modifying Products (Flavors)
+
 Products are configured in the `brandConfig.flavors` array in `src/data/config.ts`:
 
 ```typescript
@@ -127,6 +156,7 @@ Products are configured in the `brandConfig.flavors` array in `src/data/config.t
 ---
 
 ### 3. Updating Production Steps & Features
+
 Modify `brandConfig.features` and `brandConfig.process` in `src/data/config.ts` to customize your value propositions and farm-to-bottle timeline:
 
 ```typescript
@@ -135,15 +165,16 @@ process: [
     step: "01",
     title: "Wild Organic Harvesting",
     description: "Your harvest description here...",
-    details: "Extra detail shown on hover..."
+    details: "Extra detail shown on hover...",
   },
   // ...
-]
+];
 ```
 
 ---
 
 ### 4. Updating Testimonials
+
 Modify `brandConfig.testimonials` in `src/data/config.ts`. You can use local images or remote URLs (Unsplash is pre-configured in `astro.config.mjs`):
 
 ```typescript
@@ -153,14 +184,15 @@ testimonials: [
     role: "Certified Fitness Trainer",
     rating: 5,
     comment: "Your customer quote...",
-    avatar: "https://images.unsplash.com/..."
-  }
-]
+    avatar: "https://images.unsplash.com/...",
+  },
+];
 ```
 
 ---
 
 ### 5. Changing the Favicon
+
 1. Drop your new icon into `public/` (e.g. `public/pandafavi.png`).
 2. Update the `<link rel="icon">` tags in `src/layouts/Layout.astro`:
    ```html
@@ -173,13 +205,13 @@ testimonials: [
 
 All commands are run from the project root:
 
-| Command | Description |
-| :--- | :--- |
-| `npm install` | Installs all project dependencies |
-| `npm run dev` | Starts the local dev server at `http://localhost:4321` |
-| `npm run build` | Builds static assets and optimized HTML to `./dist/` |
+| Command           | Description                                                   |
+| :---------------- | :------------------------------------------------------------ |
+| `npm install`     | Installs all project dependencies                             |
+| `npm run dev`     | Starts the local dev server at `http://localhost:4321`        |
+| `npm run build`   | Builds static assets and optimized HTML to `./dist/`          |
 | `npm run preview` | Runs a local server to preview the `./dist/` production build |
-| `npx astro check` | Runs TypeScript and Astro syntax diagnostic checks |
+| `npx astro check` | Runs TypeScript and Astro syntax diagnostic checks            |
 
 ---
 
