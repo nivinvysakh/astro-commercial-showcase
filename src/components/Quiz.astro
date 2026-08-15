@@ -1,0 +1,348 @@
+---
+import { brandConfig } from '../data/config';
+import { Image } from 'astro:assets';
+const { flavors } = brandConfig;
+---
+
+<section id="quiz" class="py-24 relative overflow-hidden bg-gradient-to-b from-slate-100 to-slate-50 dark:from-[#0b0f19] dark:to-[#0a0d14]">
+  <!-- Glow Accents -->
+  <div class="absolute left-[-15%] top-[20%] w-[500px] h-[500px] rounded-full bg-amber-500/5 blur-[150px] pointer-events-none"></div>
+  <div class="absolute right-[-15%] bottom-[20%] w-[500px] h-[500px] rounded-full bg-indigo-500/5 blur-[150px] pointer-events-none"></div>
+
+  <div class="max-w-4xl mx-auto px-4 md:px-8 relative z-10">
+    
+    <!-- Header -->
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal-on-scroll">
+      <span class="text-xs font-bold tracking-widest text-amber-400 uppercase bg-amber-400/10 px-4 py-1.5 rounded-full">
+        Interactive Matcher
+      </span>
+      <h2 class="text-4xl md:text-5xl font-black mt-6 mb-4 text-slate-900 dark:text-white font-display">
+        Find Your Panda Vibe
+      </h2>
+      <p class="text-slate-600 dark:text-slate-400 text-base md:text-lg">
+        Answer three simple lifestyle questions to discover which cold-pressed blend matches your body's current needs.
+      </p>
+    </div>
+
+    <!-- Quiz Interactive Card Frame -->
+    <div class="glass dark:glass-dark border border-slate-200 dark:border-white/10 rounded-3xl p-8 md:p-12 min-h-[400px] flex flex-col justify-between shadow-xl shadow-slate-200/50 dark:shadow-[0_30px_60px_rgba(0,0,0,0.6)] relative overflow-hidden reveal-on-scroll">
+      
+      <!-- Quiz Card Accent Line -->
+      <div id="quiz-accent-bar" class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-500"></div>
+
+      <!-- Question 1 Block -->
+      <div id="quiz-step-1" class="quiz-step space-y-8">
+        <div class="flex items-center justify-between border-b border-slate-200 dark:border-white/5 pb-4">
+          <p class="text-xs font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Question 1 of 3</p>
+          <span class="h-2 w-24 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
+            <span class="block h-full w-[33%] bg-amber-400"></span>
+          </span>
+        </div>
+        
+        <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight font-display">
+          What is your main health and wellness goal right now?
+        </h3>
+ 
+        <div class="grid grid-cols-1 gap-4 pt-4">
+          <button data-answer="mango-fusion" data-next="2" class="quiz-btn text-left p-5 rounded-2xl glass hover:bg-slate-50 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15 hover:border-amber-500 dark:hover:border-amber-400/50 transition-all duration-300 flex items-center justify-between group cursor-pointer">
+            <div>
+              <p class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">Immune Support & Natural Energy</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">I want to clear morning brain fog and fuel my active day.</p>
+            </div>
+            <span class="text-2xl group-hover:translate-x-1 transition-transform">🍊</span>
+          </button>
+          
+          <button data-answer="berry-blast" data-next="2" class="quiz-btn text-left p-5 rounded-2xl glass hover:bg-slate-50 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15 hover:border-pink-500 dark:hover:border-pink-400/50 transition-all duration-300 flex items-center justify-between group cursor-pointer">
+            <div>
+              <p class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">Skin Radiance & Antioxidant Protection</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">I want to rejuvenate cells and achieve a glowing complexion.</p>
+            </div>
+            <span class="text-2xl group-hover:translate-x-1 transition-transform">🍇</span>
+          </button>
+ 
+          <button data-answer="green-detox" data-next="2" class="quiz-btn text-left p-5 rounded-2xl glass hover:bg-slate-50 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15 hover:border-emerald-500 dark:hover:border-emerald-400/50 transition-all duration-300 flex items-center justify-between group cursor-pointer">
+            <div>
+              <p class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">Deep System Detox & Hydration</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">I want to alkaline my system and clear out digestive heavy levels.</p>
+            </div>
+            <span class="text-2xl group-hover:translate-x-1 transition-transform">🥒</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Question 2 Block (Hidden Initially) -->
+      <div id="quiz-step-2" class="quiz-step hidden space-y-8">
+        <div class="flex items-center justify-between border-b border-slate-200 dark:border-white/5 pb-4">
+          <p class="text-xs font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Question 2 of 3</p>
+          <span class="h-2 w-24 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
+            <span class="block h-full w-[66%] bg-amber-400"></span>
+          </span>
+        </div>
+        
+        <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight font-display">
+          What flavor profile do you naturally crave?
+        </h3>
+ 
+        <div class="grid grid-cols-1 gap-4 pt-4">
+          <button data-answer="mango-fusion" data-next="3" class="quiz-btn text-left p-5 rounded-2xl glass hover:bg-slate-50 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15 hover:border-amber-500 dark:hover:border-amber-400/50 transition-all duration-300 flex items-center justify-between group cursor-pointer">
+            <div>
+              <p class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">Sweet, Tropical, with a Fresh Minty Twist</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Luscious mango notes balanced with cooling mint leaves.</p>
+            </div>
+            <span class="text-2xl group-hover:translate-x-1 transition-transform">🥭</span>
+          </button>
+          
+          <button data-answer="berry-blast" data-next="3" class="quiz-btn text-left p-5 rounded-2xl glass hover:bg-slate-50 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15 hover:border-pink-500 dark:hover:border-pink-400/50 transition-all duration-300 flex items-center justify-between group cursor-pointer">
+            <div>
+              <p class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">Rich, Tart, and Berry-Bursting</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Acai, blackberry, and raspberry with a citrus squeeze.</p>
+            </div>
+            <span class="text-2xl group-hover:translate-x-1 transition-transform">🍓</span>
+          </button>
+ 
+          <button data-answer="green-detox" data-next="3" class="quiz-btn text-left p-5 rounded-2xl glass hover:bg-slate-50 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15 hover:border-emerald-500 dark:hover:border-emerald-400/50 transition-all duration-300 flex items-center justify-between group cursor-pointer">
+            <div>
+              <p class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">Crisp, Alkaline Greens with Gingery Zing</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Refreshing cucumber/celery base with a spicy ginger hit.</p>
+            </div>
+            <span class="text-2xl group-hover:translate-x-1 transition-transform">🥬</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Question 3 Block (Hidden Initially) -->
+      <div id="quiz-step-3" class="quiz-step hidden space-y-8">
+        <div class="flex items-center justify-between border-b border-slate-200 dark:border-white/5 pb-4">
+          <p class="text-xs font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Question 3 of 3</p>
+          <span class="h-2 w-24 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
+            <span class="block h-full w-[100%] bg-amber-400"></span>
+          </span>
+        </div>
+        
+        <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight font-display">
+          How would you describe your body's energy levels right now?
+        </h3>
+ 
+        <div class="grid grid-cols-1 gap-4 pt-4">
+          <button data-answer="mango-fusion" data-next="result" class="quiz-btn text-left p-5 rounded-2xl glass hover:bg-slate-50 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15 hover:border-amber-500 dark:hover:border-amber-400/50 transition-all duration-300 flex items-center justify-between group cursor-pointer">
+            <div>
+              <p class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">Sluggish and Deflated</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">I feel physically flat and need a clean organic pickup.</p>
+            </div>
+            <span class="text-2xl group-hover:translate-x-1 transition-transform">⚡</span>
+          </button>
+          
+          <button data-answer="berry-blast" data-next="result" class="quiz-btn text-left p-5 rounded-2xl glass hover:bg-slate-50 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15 hover:border-pink-500 dark:hover:border-pink-400/50 transition-all duration-300 flex items-center justify-between group cursor-pointer">
+            <div>
+              <p class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">Stressed and Fatigued</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">My system feels overworked and needs high-dose antioxidants.</p>
+            </div>
+            <span class="text-2xl group-hover:translate-x-1 transition-transform">🧘</span>
+          </button>
+ 
+          <button data-answer="green-detox" data-next="result" class="quiz-btn text-left p-5 rounded-2xl glass hover:bg-slate-50 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15 hover:border-emerald-500 dark:hover:border-emerald-400/50 transition-all duration-300 flex items-center justify-between group cursor-pointer">
+            <div>
+              <p class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">Bloated and Heavy</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">I need a deep internal cellular flush and hydration reload.</p>
+            </div>
+            <span class="text-2xl group-hover:translate-x-1 transition-transform">💧</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Result Block (Hidden Initially) -->
+      <div id="quiz-result" class="quiz-step hidden space-y-8">
+        <div class="text-center">
+          <span class="text-xs font-bold tracking-widest text-amber-400 uppercase bg-amber-400/10 px-4 py-1.5 rounded-full inline-block">
+            Your Match Found!
+          </span>
+          <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-4 font-display">
+            You matched with...
+          </h3>
+        </div>
+
+        <!-- Matching Flavor Details Card -->
+        {flavors.map((fl) => (
+          <div data-result-flavor={fl.id} class="hidden grid-cols-1 md:grid-cols-12 gap-8 items-center bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/5 rounded-3xl p-6 md:p-8 relative overflow-hidden">
+            <!-- Glow background specific to flavor -->
+            <div class="absolute -right-24 top-0 w-48 h-48 rounded-full blur-[100px] opacity-20 pointer-events-none" style={{ backgroundColor: fl.accentHex }}></div>
+
+            <div class="md:col-span-4 flex justify-center">
+              <Image 
+                src={fl.image} 
+                alt={fl.name} 
+                width={220}
+                height={275}
+                class="h-[250px] object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)] animate-float"
+              />
+            </div>
+            <div class="md:col-span-8 space-y-4 text-left">
+              <h4 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white">{fl.name}</h4>
+              <p class="text-sm font-semibold uppercase tracking-wider" style={{ color: fl.accentHex }}>{fl.tagline}</p>
+              <p class="text-slate-600 dark:text-slate-300 text-sm md:text-base leading-relaxed">{fl.description}</p>
+              
+              <div class="flex flex-wrap gap-2 pt-2">
+                {fl.benefits.map((b) => (
+                  <span class="text-xxs font-bold px-2.5 py-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-600 dark:text-slate-300 rounded-md">
+                    ✓ {b}
+                  </span>
+                ))}
+              </div>
+
+              <div class="pt-4 flex items-center justify-between border-t border-slate-200 dark:border-white/5">
+                <div>
+                  <span class="text-2xl font-black text-slate-900 dark:text-white">{fl.price}</span>
+                  <span class="text-xs text-slate-500 dark:text-slate-400"> / bottle</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="text-amber-400">★</span>
+                  <span class="text-sm font-bold text-slate-900 dark:text-white">{fl.rating}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        <!-- Restart Actions -->
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+          <button 
+            id="quiz-order-match" 
+            class="w-full sm:w-auto text-center px-8 py-3.5 text-sm font-bold text-white dark:text-slate-950 bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-100 rounded-xl transition-all duration-300 cursor-pointer"
+          >
+            Order My Blend
+          </button>
+          <button 
+            id="quiz-restart" 
+            class="w-full sm:w-auto text-center px-8 py-3.5 text-sm font-bold text-slate-900 dark:text-white glass hover:bg-slate-100 dark:hover:bg-white/10 rounded-xl transition-all duration-300 cursor-pointer"
+          >
+            Take Quiz Again
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  let scores = {
+    'mango-fusion': 0,
+    'berry-blast': 0,
+    'green-detox': 0
+  };
+
+  const steps = document.querySelectorAll('.quiz-step');
+  const answerButtons = document.querySelectorAll('.quiz-btn');
+  const resultDiv = document.getElementById('quiz-result');
+  const restartButton = document.getElementById('quiz-restart');
+  const accentBar = document.getElementById('quiz-accent-bar');
+  const resultFlavors = document.querySelectorAll('[data-result-flavor]');
+
+  // Color mapping for top accent bar progression
+  const accentGradients = {
+    start: 'from-amber-400 to-orange-500',
+    'mango-fusion': 'from-amber-400 to-orange-500',
+    'berry-blast': 'from-pink-500 to-purple-600',
+    'green-detox': 'from-emerald-400 to-teal-500'
+  };
+
+  answerButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const answer = btn.getAttribute('data-answer') as keyof typeof scores;
+      const nextStep = btn.getAttribute('data-next');
+
+      // Increment matching score
+      if (answer && answer in scores) {
+        scores[answer]++;
+      }
+
+      // Transition to next question or show result
+      if (nextStep) {
+        const currentActive = btn.closest('.quiz-step');
+        
+        currentActive?.classList.add('opacity-0', 'scale-95', 'transition-all', 'duration-300');
+        
+        setTimeout(() => {
+          currentActive?.classList.add('hidden');
+          currentActive?.classList.remove('opacity-0', 'scale-95');
+
+          if (nextStep === 'result') {
+            showResult();
+          } else {
+            const nextEl = document.getElementById(`quiz-step-${nextStep}`);
+            if (nextEl) {
+              nextEl.classList.remove('hidden');
+              nextEl.classList.add('reveal-active');
+            }
+          }
+        }, 300);
+      }
+    });
+  });
+
+  function showResult() {
+    // Find flavor with highest score
+    let winningFlavor = 'mango-fusion';
+    let maxScore = -1;
+
+    for (const [fl, sc] of Object.entries(scores)) {
+      if (sc > maxScore) {
+        maxScore = sc;
+        winningFlavor = fl;
+      }
+    }
+
+    // Update accent bar gradient
+    if (accentBar && winningFlavor in accentGradients) {
+      accentBar.className = `absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${accentGradients[winningFlavor as keyof typeof accentGradients]} transition-all duration-500`;
+    }
+
+    // Hide all flavor result cards and display the winning one
+    resultFlavors.forEach(card => {
+      const cardFlavor = card.getAttribute('data-result-flavor');
+      if (cardFlavor === winningFlavor) {
+        card.classList.remove('hidden');
+        card.classList.add('grid');
+      } else {
+        card.classList.add('hidden');
+        card.classList.remove('grid');
+      }
+    });
+
+    // Reveal result frame
+    if (resultDiv) {
+      resultDiv.classList.remove('hidden');
+      resultDiv.classList.add('reveal-active');
+    }
+  }
+
+  // Reset Quiz
+  restartButton?.addEventListener('click', () => {
+    scores = {
+      'mango-fusion': 0,
+      'berry-blast': 0,
+      'green-detox': 0
+    };
+
+    resultDiv?.classList.add('opacity-0', 'scale-95', 'transition-all', 'duration-300');
+
+    setTimeout(() => {
+      resultDiv?.classList.add('hidden');
+      resultDiv?.classList.remove('opacity-0', 'scale-95');
+      
+      // Reset accent bar
+      if (accentBar) {
+        accentBar.className = 'absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-500';
+      }
+
+      // Show step 1
+      const step1 = document.getElementById('quiz-step-1');
+      if (step1) {
+        step1.classList.remove('hidden');
+        step1.classList.add('reveal-active');
+      }
+    }, 300);
+  });
+</script>

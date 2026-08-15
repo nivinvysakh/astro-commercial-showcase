@@ -1,17 +1,276 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Features from '../components/Features.astro';
+import Process from '../components/Process.astro';
+import Quiz from '../components/Quiz.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Footer from '../components/Footer.astro';
+import { brandConfig } from '../data/config';
+import { Image } from 'astro:assets';
 
+const { flavors } = brandConfig;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+	<!-- Navbar Navigation Header -->
+	<Navbar />
+
+	<main>
+		<!-- Interactive Hero Section -->
+		<Hero />
+
+		<!-- Side-by-Side Product Showcase Section -->
+		<section id="flavors" class="py-24 relative overflow-hidden bg-gradient-to-b from-slate-50 to-slate-100 dark:from-[#020617] dark:to-[#0b0f19]">
+			<div class="absolute right-[-10%] top-[30%] w-[400px] h-[400px] rounded-full bg-orange-500/5 blur-[120px] pointer-events-none"></div>
+			<div class="absolute left-[-10%] bottom-[10%] w-[400px] h-[400px] rounded-full bg-purple-500/5 blur-[120px] pointer-events-none"></div>
+
+			<div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+				
+				<!-- Section Title -->
+				<div class="text-center max-w-3xl mx-auto mb-20 reveal-on-scroll">
+					<span class="text-xs font-bold tracking-widest text-orange-400 uppercase bg-orange-400/10 px-4 py-1.5 rounded-full">
+						The Collection
+					</span>
+					<h2 class="text-4xl md:text-5xl font-black mt-6 mb-6 leading-tight text-slate-900 dark:text-white font-display">
+						Explore Our Wild Blends
+					</h2>
+					<p class="text-lg text-slate-400 leading-relaxed">
+						Each bottle is custom crafted using specific wellness ratios. Select a flavor below to add to your daily box.
+					</p>
+				</div>
+
+				<!-- Flavor Cards Grid -->
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+					{flavors.map((flavor) => (
+						<div class="group relative glass rounded-3xl p-6 hover:bg-white/85 dark:hover:bg-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between overflow-hidden reveal-on-scroll">
+							
+							<!-- Accent radial background behind bottle -->
+							<div 
+								class="absolute left-1/2 top-[10%] -translate-x-1/2 w-48 h-48 rounded-full blur-[45px] opacity-15 transition-all duration-500 group-hover:opacity-30 group-hover:scale-110 pointer-events-none"
+								style={{ backgroundColor: flavor.accentHex }}
+							></div>
+
+							<div>
+								<!-- Image Container -->
+								<div class="relative w-full aspect-[4/5] flex items-center justify-center mb-6 overflow-hidden rounded-2xl bg-slate-100/80 dark:bg-slate-950/20 border border-slate-200 dark:border-white/5">
+									<Image 
+										src={flavor.image} 
+										alt={flavor.name} 
+										width={300}
+										height={375}
+										class="h-[85%] object-contain group-hover:scale-105 group-hover:rotate-[3deg] transition-transform duration-500 drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)]"
+									/>
+								</div>
+
+								<!-- Rating / Star Row -->
+								<div class="flex items-center justify-between mb-3">
+									<div class="flex gap-0.5 text-amber-400 text-sm">
+										<span>★</span>
+										<span>★</span>
+										<span>★</span>
+										<span>★</span>
+										<span>★</span>
+									</div>
+									<span class="text-xs font-semibold text-slate-400">({flavor.reviewsCount} reviews)</span>
+								</div>
+
+								<!-- Details -->
+								<h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+									{flavor.name}
+								</h3>
+								<p class="text-xs font-semibold uppercase tracking-wider mb-4" style={{ color: flavor.accentHex }}>
+									{flavor.tagline}
+								</p>
+								<p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+									{flavor.description}
+								</p>
+							</div>
+
+							<!-- Actions Row -->
+							<div class="pt-6 border-t border-slate-200 dark:border-white/5 space-y-4">
+								<div class="flex items-center justify-between">
+									<div>
+										<p class="text-xxs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">Price per bottle</p>
+										<p class="text-2xl font-black text-slate-900 dark:text-white mt-0.5">{flavor.price}</p>
+									</div>
+									<div class="text-right">
+										<p class="text-xxs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">Calories</p>
+										<p class="text-lg font-bold text-slate-700 dark:text-slate-200 mt-0.5">{flavor.nutrition.calories} kcal</p>
+									</div>
+								</div>
+
+								<!-- Interactive Button Wrapper -->
+								<div class="relative h-14 w-full" id={`btn-container-${flavor.id}`}>
+									<!-- Add to Box Button -->
+									<button 
+										data-cart-add={flavor.id}
+										class="w-full h-full bg-white hover:bg-slate-100 text-slate-950 rounded-2xl font-bold text-sm transition-all transform active:scale-95 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-black/10 hover:shadow-white/5"
+									>
+										<span>Add to Box</span>
+										<span class="text-xs">⚡</span>
+									</button>
+
+									<!-- Quantity Selector -->
+									<div 
+										data-qty-selector={flavor.id}
+										class="hidden w-full h-full bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-white/10 rounded-2xl p-1 items-center justify-between transition-all duration-300"
+									>
+										<button data-qty-action="minus" data-flavor={flavor.id} class="w-12 h-full rounded-xl hover:bg-slate-200 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-bold flex items-center justify-center transition-colors cursor-pointer" aria-label="Decrease quantity">−</button>
+										<span data-qty-val={flavor.id} class="text-sm font-bold text-slate-900 dark:text-white">0</span>
+										<button data-qty-action="plus" data-flavor={flavor.id} class="w-12 h-full rounded-xl hover:bg-slate-200 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-bold flex items-center justify-center transition-colors cursor-pointer" aria-label="Increase quantity">+</button>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					))}
+				</div>
+
+			</div>
+		</section>
+
+		<!-- Brand Core Features Section -->
+		<Features />
+
+		<!-- Process Extraction Timeline -->
+		<Process />
+
+		<!-- Interactive Recommendation Quiz -->
+		<Quiz />
+
+		<!-- User Testimonials Section -->
+		<Testimonials />
+	</main>
+
+	<!-- Footer branding information -->
+	<Footer />
+</Layout>
+
+<script>
+	const cartAddButtons = document.querySelectorAll('[data-cart-add]');
+	const quizOrderMatch = document.getElementById('quiz-order-match');
+
+	function getCart() {
+		try {
+			return JSON.parse(localStorage.getItem('panda-cart') || '{}');
+		} catch {
+			return {};
+		}
+	}
+
+	function saveCart(cart: Record<string, number>) {
+		localStorage.setItem('panda-cart', JSON.stringify(cart));
+	}
+
+	function updateCardUIs() {
+		const cart = getCart();
+		
+		// Update all collection card buttons and quantity selectors
+		document.querySelectorAll('[data-cart-add]').forEach(btn => {
+			const flavorId = btn.getAttribute('data-cart-add');
+			if (!flavorId) return;
+
+			const qtySelector = document.querySelector(`[data-qty-selector="${flavorId}"]`);
+			const qtyVal = document.querySelector(`[data-qty-val="${flavorId}"]`);
+			const qty = Number(cart[flavorId] || 0);
+
+			if (qty > 0) {
+				btn.classList.add('hidden');
+				if (qtySelector) {
+					qtySelector.classList.remove('hidden');
+					qtySelector.classList.add('flex');
+				}
+				if (qtyVal) qtyVal.textContent = qty.toString();
+			} else {
+				btn.classList.remove('hidden');
+				if (qtySelector) {
+					qtySelector.classList.add('hidden');
+					qtySelector.classList.remove('flex');
+				}
+			}
+		});
+	}
+
+	// Initialize card states on load
+	updateCardUIs();
+
+	// Cart Add Event dispatchers for Collection Cards
+	cartAddButtons.forEach(btn => {
+		btn.addEventListener('click', () => {
+			const flavorId = btn.getAttribute('data-cart-add');
+			if (!flavorId) return;
+
+			const cart = getCart();
+			cart[flavorId] = (cart[flavorId] || 0) + 1;
+			saveCart(cart);
+			updateCardUIs();
+
+			// Trigger cart animation in Navbar and update state
+			document.dispatchEvent(new CustomEvent('add-to-cart', {
+				detail: { flavorId }
+			}));
+		});
+	});
+
+	// Handle Quantity selector button clicks (+ and -) on home page
+	document.querySelectorAll('[data-qty-action]').forEach(btn => {
+		btn.addEventListener('click', () => {
+			const action = btn.getAttribute('data-qty-action');
+			const flavorId = btn.getAttribute('data-flavor');
+			if (!flavorId) return;
+
+			const cart = getCart();
+			
+			if (action === 'plus') {
+				cart[flavorId] = (cart[flavorId] || 0) + 1;
+			} else if (action === 'minus') {
+				cart[flavorId] = Math.max(0, (cart[flavorId] || 0) - 1);
+			}
+
+			saveCart(cart);
+			updateCardUIs();
+
+			// Update Navbar Badge
+			document.dispatchEvent(new CustomEvent('add-to-cart'));
+		});
+	});
+
+	// Quiz Matched Order Action
+	quizOrderMatch?.addEventListener('click', () => {
+		// Find active result card
+		const activeCard = document.querySelector('[data-result-flavor]:not(.hidden)');
+		const flavorId = activeCard?.getAttribute('data-result-flavor');
+		
+		if (flavorId) {
+			const cart = getCart();
+			cart[flavorId] = (cart[flavorId] || 0) + 1;
+			saveCart(cart);
+			updateCardUIs();
+
+			document.dispatchEvent(new CustomEvent('add-to-cart', {
+				detail: { flavorId }
+			}));
+
+			// Simple visual feedback
+			const originalText = quizOrderMatch.textContent;
+			quizOrderMatch.textContent = 'Added to Box! ✓';
+			quizOrderMatch.classList.add('bg-emerald-400', 'text-slate-950');
+			quizOrderMatch.classList.remove('bg-white', 'hover:bg-slate-100');
+			
+			setTimeout(() => {
+				quizOrderMatch.textContent = originalText;
+				quizOrderMatch.classList.remove('bg-emerald-400', 'text-slate-950');
+				quizOrderMatch.classList.add('bg-white', 'hover:bg-slate-100');
+			}, 1500);
+		}
+	});
+
+	// Listen for changes from other pages (like checkout page removing items)
+	window.addEventListener('storage', (e) => {
+		if (e.key === 'panda-cart') {
+			updateCardUIs();
+		}
+	});
+</script>

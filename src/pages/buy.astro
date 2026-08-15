@@ -1,0 +1,437 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { brandConfig } from '../data/config';
+
+const { flavors } = brandConfig;
+---
+
+<Layout title="Checkout - Panda Juices" description="Complete your order and custom box of premium cold-pressed juices.">
+  <Navbar />
+
+  <main class="min-h-screen pt-28 pb-16 bg-gradient-to-b from-slate-50 to-slate-100 dark:from-[#0b0f19] dark:to-[#0a0d14]">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 w-full">
+      
+      <!-- Page Title -->
+      <div class="mb-12 reveal-on-scroll">
+        <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white font-display">Your Wild Box</h1>
+        <p class="text-slate-500 dark:text-slate-400 text-sm md:text-base mt-2">Review your selection, adjust quantities, and finalize checkout.</p>
+      </div>
+
+      <!-- Main Cart Grid (Hidden by default, shown by JS if not empty) -->
+      <div id="cart-main-grid" class="hidden grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Cart Items List -->
+        <div class="lg:col-span-7 space-y-4" id="cart-items-container">
+          <!-- Items will be injected here dynamically by script -->
+        </div>
+
+        <!-- Right: Order Summary & Checkout Form -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <!-- Summary Box -->
+          <div class="glass dark:glass-dark border border-slate-200 dark:border-white/10 rounded-3xl p-6 md:p-8 space-y-6">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/5 pb-4">Order Summary</h3>
+            
+            <div class="space-y-3 text-sm">
+              <div class="flex justify-between text-slate-500 dark:text-slate-400">
+                <span>Subtotal</span>
+                <span id="summary-subtotal">$0.00</span>
+              </div>
+              <div class="flex justify-between text-slate-500 dark:text-slate-400">
+                <span>Estimated Tax (8%)</span>
+                <span id="summary-tax">$0.00</span>
+              </div>
+              <div class="flex justify-between text-slate-500 dark:text-slate-400">
+                <span>Shipping</span>
+                <span id="summary-shipping">Free</span>
+              </div>
+              <div class="pt-4 border-t border-slate-200 dark:border-white/5 flex justify-between text-base font-black text-slate-900 dark:text-white">
+                <span>Total</span>
+                <span id="summary-total" class="text-amber-600 dark:text-amber-400 dark:text-glow-orange">$0.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Checkout Form -->
+          <div class="glass dark:glass-dark border border-slate-200 dark:border-white/10 rounded-3xl p-6 md:p-8">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/5 pb-4 mb-6">Delivery Details</h3>
+            
+            <form id="checkout-form" class="space-y-4">
+              <div>
+                <label for="name" class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Full Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  required
+                  placeholder="John Doe"
+                  class="w-full bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400/50"
+                />
+              </div>
+ 
+              <div>
+                <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Email Address</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  required
+                  placeholder="john@example.com"
+                  class="w-full bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400/50"
+                />
+              </div>
+ 
+              <div>
+                <label for="address" class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Shipping Address</label>
+                <input 
+                  type="text" 
+                  id="address" 
+                  required
+                  placeholder="123 Bamboo Forest Dr"
+                  class="w-full bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400/50"
+                />
+              </div>
+ 
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label for="city" class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">City</label>
+                  <input 
+                    type="text" 
+                    id="city" 
+                    required
+                    placeholder="San Francisco"
+                    class="w-full bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400/50"
+                  />
+                </div>
+                <div>
+                  <label for="zip" class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">ZIP Code</label>
+                  <input 
+                    type="text" 
+                    id="zip" 
+                    required
+                    placeholder="94111"
+                    class="w-full bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400/50"
+                  />
+                </div>
+              </div>
+
+              <!-- Payment Method Title -->
+              <div class="pt-4 border-t border-slate-200 dark:border-white/5">
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">Payment Method</label>
+                
+                <!-- Payment Method Tabs -->
+                <div class="grid grid-cols-3 gap-2 mb-4 bg-slate-100 dark:bg-slate-950/40 p-1.5 rounded-xl border border-slate-200 dark:border-white/5">
+                  <button type="button" data-pay-tab="card" class="pay-tab-btn py-2.5 text-[9px] md:text-xs font-bold text-center rounded-lg cursor-pointer bg-white dark:bg-slate-800 text-slate-950 dark:text-white shadow-sm transition-all duration-300">
+                    Card
+                  </button>
+                  <button type="button" data-pay-tab="upi" class="pay-tab-btn py-2.5 text-[9px] md:text-xs font-bold text-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg cursor-pointer transition-all duration-300">
+                    UPI/GPay
+                  </button>
+                  <button type="button" data-pay-tab="applepay" class="pay-tab-btn py-2.5 text-[9px] md:text-xs font-bold text-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg cursor-pointer transition-all duration-300">
+                     Pay
+                  </button>
+                </div>
+
+                <!-- Payment Forms -->
+                <div class="space-y-4 pt-2">
+                  
+                  <!-- Card Fields -->
+                  <div id="pay-form-card" class="pay-form-section space-y-4">
+                    <div>
+                      <input 
+                        type="text" 
+                        id="card-number"
+                        placeholder="Card Number" 
+                        class="w-full bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400/50"
+                        pattern="\d{16}"
+                        maxlength="16"
+                      />
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                      <input 
+                        type="text" 
+                        id="card-expiry"
+                        placeholder="MM/YY" 
+                        class="w-full bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400/50"
+                        pattern="\d{2}/\d{2}"
+                        maxlength="5"
+                      />
+                      <input 
+                        type="text" 
+                        id="card-cvv"
+                        placeholder="CVV" 
+                        class="w-full bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400/50"
+                        pattern="\d{3,4}"
+                        maxlength="4"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- UPI/GPay Fields -->
+                  <div id="pay-form-upi" class="pay-form-section hidden space-y-4">
+                    <div>
+                      <input 
+                        type="text" 
+                        id="upi-id"
+                        placeholder="UPI ID (e.g. name@okaxis or GPay number)" 
+                        class="w-full bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400/50"
+                      />
+                    </div>
+                    <div class="text-center text-xs text-slate-500 py-1">or scan QR code upon completion</div>
+                  </div>
+
+
+
+                  <!-- Apple Pay Fields -->
+                  <div id="pay-form-applepay" class="pay-form-section hidden">
+                    <div class="flex justify-center bg-black hover:bg-slate-950 border border-white/10 py-3.5 rounded-xl cursor-pointer items-center gap-2 transition-colors">
+                      <span class="text-white text-sm font-bold">Pay with Pay</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="pt-4">
+                <button 
+                  type="submit" 
+                  class="w-full py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold text-sm rounded-xl hover:from-amber-600 hover:to-orange-700 transition-all shadow-[0_0_15px_rgba(245,158,11,0.3)] cursor-pointer hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] transform active:scale-98"
+                >
+                  Place Order
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Empty Cart Screen (Hidden by default, shown if cart empty) -->
+      <div id="cart-empty-screen" class="hidden text-center py-20 glass dark:glass-dark border border-slate-200 dark:border-white/5 rounded-3xl p-8 max-w-2xl mx-auto">
+        <span class="text-6xl">🐼</span>
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white mt-6 mb-4 font-display">Your Bamboo box is empty!</h2>
+        <p class="text-slate-600 dark:text-slate-400 text-sm max-w-sm mx-auto mb-8">It looks like you haven't added any premium cold-pressed juices to your box yet.</p>
+        <a 
+          href="/#flavors" 
+          class="inline-flex items-center justify-center px-8 py-3.5 bg-slate-900 hover:bg-slate-800 dark:bg-white text-white dark:text-slate-950 rounded-xl font-bold text-sm dark:hover:bg-slate-100 transition-colors shadow-md"
+        >
+          Explore Our Flavors
+        </a>
+      </div>
+
+      <!-- Success Screen (Hidden by default, shown after checkout success) -->
+      <div id="checkout-success-screen" class="hidden text-center py-20 glass dark:glass-dark border border-slate-200 dark:border-white/10 rounded-3xl p-8 max-w-2xl mx-auto relative overflow-hidden">
+        <!-- Glow spot -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+          <div class="w-64 h-64 bg-emerald-500 rounded-full blur-[100px]"></div>
+        </div>
+
+        <div class="relative z-10 space-y-6">
+          <div class="h-20 w-20 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400 text-4xl animate-pulse-glow">
+            ✓
+          </div>
+          <h2 class="text-4xl font-extrabold text-slate-900 dark:text-white font-display">Order Confirmed!</h2>
+          <p class="text-slate-600 dark:text-slate-300 text-sm md:text-base max-w-md mx-auto leading-relaxed">
+            Your wild pack of Panda cold-pressed juices is being packed at dawn. We've sent a detailed delivery receipt to your email.
+          </p>
+          <div class="pt-6">
+            <a 
+              href="/" 
+              class="inline-flex items-center justify-center px-8 py-3.5 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-bold text-sm hover:from-amber-600 hover:to-orange-700 transition-all shadow-md shadow-orange-500/20"
+            >
+              Back to Wild Home
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<!-- Client Side Dynamic Cart Logic -->
+<script define:vars={{ flavors }}>
+  const cartGrid = document.getElementById('cart-main-grid');
+  const emptyScreen = document.getElementById('cart-empty-screen');
+  const successScreen = document.getElementById('checkout-success-screen');
+  const itemsContainer = document.getElementById('cart-items-container');
+  
+  const subtotalLabel = document.getElementById('summary-subtotal');
+  const taxLabel = document.getElementById('summary-tax');
+  const shippingLabel = document.getElementById('summary-shipping');
+  const totalLabel = document.getElementById('summary-total');
+
+  const checkoutForm = document.getElementById('checkout-form');
+
+  function getCart() {
+    try {
+      return JSON.parse(localStorage.getItem('panda-cart') || '{}');
+    } catch {
+      return {};
+    }
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem('panda-cart', JSON.stringify(cart));
+    // Dispatch event to trigger navbar update
+    document.dispatchEvent(new CustomEvent('add-to-cart'));
+  }
+
+  function parsePrice(priceStr) {
+    return parseFloat(priceStr.replace('$', ''));
+  }
+
+  function renderCart() {
+    const cart = getCart();
+    const cartKeys = Object.keys(cart).filter(key => cart[key] > 0);
+
+    if (cartKeys.length === 0) {
+      cartGrid.classList.add('hidden');
+      emptyScreen.classList.remove('hidden');
+      successScreen.classList.add('hidden');
+      return;
+    }
+
+    cartGrid.classList.remove('hidden');
+    cartGrid.classList.add('grid');
+    emptyScreen.classList.add('hidden');
+    successScreen.classList.add('hidden');
+
+    // Clear previous items
+    itemsContainer.innerHTML = '';
+
+    let subtotal = 0;
+
+    cartKeys.forEach(flavorId => {
+      const flavor = flavors.find(f => f.id === flavorId);
+      if (!flavor) return;
+
+      const qty = cart[flavorId];
+      const itemPrice = parsePrice(flavor.price);
+      subtotal += itemPrice * qty;
+
+      // Item Card Element
+      const itemCard = document.createElement('div');
+      itemCard.className = 'relative flex flex-col sm:flex-row items-center gap-6 glass rounded-2xl p-5 hover:bg-white/85 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15 hover:border-slate-300 dark:hover:border-white/20 transition-all duration-300';
+      itemCard.innerHTML = `
+        <div class="h-28 w-24 flex items-center justify-center bg-slate-100 dark:bg-slate-950/20 border border-slate-200 dark:border-white/5 rounded-xl shrink-0">
+          <img src="${flavor.image}" alt="${flavor.name}" width="96" height="112" loading="lazy" class="h-[90%] object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.4)]" />
+        </div>
+        
+        <div class="flex-grow text-center sm:text-left space-y-1">
+          <h4 class="text-lg font-bold text-slate-900 dark:text-white">${flavor.name}</h4>
+          <p class="text-xs font-semibold uppercase tracking-wider" style="color: ${flavor.accentHex}">${flavor.tagline}</p>
+          <p class="text-sm font-black text-amber-600 dark:text-amber-400 mt-1">${flavor.price} <span class="text-xxs text-slate-500 dark:text-slate-400 font-medium">per bottle</span></p>
+        </div>
+
+        <div class="flex items-center gap-4 border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-slate-950/40 px-3 py-1.5 rounded-xl shrink-0">
+          <button data-action="minus" data-id="${flavorId}" class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-bold w-6 h-6 flex items-center justify-center cursor-pointer transition-colors" aria-label="Decrease quantity">−</button>
+          <span class="text-sm font-bold text-slate-900 dark:text-white w-6 text-center">${qty}</span>
+          <button data-action="plus" data-id="${flavorId}" class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-bold w-6 h-6 flex items-center justify-center cursor-pointer transition-colors" aria-label="Increase quantity">+</button>
+        </div>
+
+        <button data-action="remove" data-id="${flavorId}" class="sm:absolute sm:top-4 sm:right-4 text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 transition-colors p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 cursor-pointer" aria-label="Remove item">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+          </svg>
+        </button>
+      `;
+
+      itemsContainer.appendChild(itemCard);
+    });
+
+    // Update Totals
+    const tax = subtotal * 0.08;
+    const shipping = subtotal >= 25 || subtotal === 0 ? 0 : 4.99;
+    const total = subtotal + tax + shipping;
+
+    subtotalLabel.textContent = `$${subtotal.toFixed(2)}`;
+    taxLabel.textContent = `$${tax.toFixed(2)}`;
+    shippingLabel.textContent = shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`;
+    totalLabel.textContent = `$${total.toFixed(2)}`;
+
+    // Add event listeners to quantities buttons
+    document.querySelectorAll('[data-action]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const action = btn.getAttribute('data-action');
+        const flavorId = btn.getAttribute('data-id');
+        const cart = getCart();
+
+        if (action === 'plus') {
+          cart[flavorId] = (cart[flavorId] || 0) + 1;
+        } else if (action === 'minus') {
+          cart[flavorId] = Math.max(0, cart[flavorId] - 1);
+        } else if (action === 'remove') {
+          cart[flavorId] = 0;
+        }
+
+        saveCart(cart);
+        renderCart();
+      });
+    });
+  }
+
+  // Initial Load
+  renderCart();
+
+  // Handle Payment Tab Toggles
+  const payTabs = document.querySelectorAll('[data-pay-tab]');
+  const payForms = document.querySelectorAll('.pay-form-section');
+
+  payTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetFormId = tab.getAttribute('data-pay-tab');
+
+      // Update active styling
+      payTabs.forEach(t => {
+        t.className = 'pay-tab-btn py-2.5 text-[9px] md:text-xs font-bold text-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg cursor-pointer transition-all duration-300';
+      });
+      tab.className = 'pay-tab-btn py-2.5 text-[9px] md:text-xs font-bold text-center rounded-lg cursor-pointer bg-white dark:bg-slate-800 text-slate-950 dark:text-white shadow-sm transition-all duration-300';
+
+      // Toggle form visibilities
+      payForms.forEach(form => {
+        if (form.id === `pay-form-${targetFormId}`) {
+          form.classList.remove('hidden');
+        } else {
+          form.classList.add('hidden');
+        }
+      });
+
+      // Update input dynamic validations (only validate visible inputs)
+      document.querySelectorAll('.pay-form-section input, .pay-form-section select').forEach(input => {
+        const isHidden = input.closest('.pay-form-section')?.classList.contains('hidden');
+        if (isHidden) {
+          input.removeAttribute('required');
+        } else {
+          const inputId = input.id;
+          if (inputId === 'card-number' || inputId === 'card-expiry' || inputId === 'card-cvv' || inputId === 'upi-id') {
+            input.setAttribute('required', 'true');
+          }
+        }
+      });
+    });
+  });
+
+  // Set card inputs as required initially
+  document.querySelectorAll('#pay-form-card input').forEach(input => {
+    input.setAttribute('required', 'true');
+  });
+
+  // Handle Checkout submission
+  checkoutForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // Clear cart storage and badge
+    localStorage.removeItem('panda-cart');
+    // Dispatch event to trigger navbar update
+    document.dispatchEvent(new CustomEvent('add-to-cart'));
+
+    // Show Success Screen
+    cartGrid.classList.add('hidden');
+    emptyScreen.classList.add('hidden');
+    successScreen.classList.remove('hidden');
+  });
+</script>

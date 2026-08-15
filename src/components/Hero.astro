@@ -1,0 +1,385 @@
+---
+import { brandConfig } from '../data/config';
+import { Image } from 'astro:assets';
+const { hero, flavors } = brandConfig;
+const initialFlavor = flavors[0];
+---
+
+<section 
+  id="hero" 
+  class="relative min-h-screen pt-28 pb-16 flex items-center overflow-hidden transition-all duration-1000 bg-gradient-to-br from-[#111827] via-[#0f172a] to-[#020617]"
+>
+  <!-- Interactive Radial Ambient Glow behind the card -->
+  <div 
+    id="hero-glow"
+    class="absolute right-[5%] top-[20%] w-[650px] h-[650px] rounded-full opacity-20 pointer-events-none transition-all duration-1000 ease-out"
+    style={{ background: `radial-gradient(circle, ${initialFlavor.accentHex} 0%, transparent 70%)` }}
+  ></div>
+
+  <!-- Decorative Jungle Palms watermark -->
+  <div class="absolute left-[-2%] top-[8%] opacity-5 w-[350px] h-[350px] pointer-events-none select-none">
+    <svg viewBox="0 0 100 100" fill="currentColor" class="text-white animate-float">
+      <path d="M10 80 C 40 40, 60 30, 90 20 C 60 50, 40 60, 10 80 Z" />
+    </svg>
+  </div>
+  <div class="absolute right-[2%] bottom-[8%] opacity-5 w-[250px] h-[250px] pointer-events-none select-none">
+    <svg viewBox="0 0 100 100" fill="currentColor" class="text-white animate-float" style="animation-delay: -3s;">
+      <path d="M10 80 C 40 40, 60 30, 90 20 C 60 50, 40 60, 10 80 Z" />
+    </svg>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-4 md:px-8 w-full z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      
+      <!-- Left Column: Copy & Details -->
+      <div class="lg:col-span-7 flex flex-col justify-center text-left order-2 lg:order-1">
+        <!-- Floating Badge -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass border-slate-200 dark:border-white/10 w-fit mb-8">
+          <span class="flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-xs font-bold text-slate-800 dark:text-slate-200 tracking-widest uppercase">100% Raw Cold-Pressed Juice</span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-5xl md:text-7xl font-light tracking-tight leading-[1.05] text-slate-900 dark:text-white mb-8 font-display">
+          Unleash the <br/>
+          <span 
+            id="hero-highlight" 
+            class="font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-1000 text-glow-orange font-sans uppercase text-6xl md:text-8xl"
+          >
+            {hero.highlightTitle}
+          </span>
+        </h1>
+
+        <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-10 max-w-xl">
+          {hero.subtitle}
+        </p>
+
+        <!-- Dynamic Content Card -->
+        <div class="glass border border-white/10 rounded-3xl p-6 md:p-8 mb-10 max-w-2xl relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
+          <!-- Background accent gradient overlay -->
+          <div 
+            id="card-accent" 
+            class="absolute top-0 right-0 w-32 h-32 rounded-full opacity-20 pointer-events-none transition-all duration-1000"
+            style={{ background: `radial-gradient(circle, ${initialFlavor.accentHex} 0%, transparent 70%)` }}
+          ></div>
+          
+          <div class="relative z-10">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+              <h2 id="flavor-title" class="text-3xl font-black text-slate-900 dark:text-white transition-all duration-500 tracking-tight font-sans">
+                {initialFlavor.name}
+              </h2>
+              <p id="flavor-tagline" class="text-xs font-bold tracking-widest uppercase transition-all duration-500 font-sans" style={{ color: initialFlavor.accentHex }}>
+                {initialFlavor.tagline}
+              </p>
+            </div>
+            
+            <p id="flavor-desc" class="text-slate-600 dark:text-slate-300 text-sm md:text-base leading-relaxed mb-6 transition-all duration-500">
+              {initialFlavor.description}
+            </p>
+
+            <!-- Benefits list -->
+            <div class="flex flex-wrap gap-2 mb-8" id="flavor-benefits">
+              {initialFlavor.benefits.map((benefit) => (
+                <span class="text-xs font-semibold px-3.5 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-700 dark:text-slate-200 rounded-xl transition-all duration-300 hover:bg-slate-200 dark:hover:bg-white/10">
+                  ✨ {benefit}
+                </span>
+              ))}
+            </div>
+
+            <!-- Stats grid -->
+            <div class="grid grid-cols-4 gap-4 pt-6 border-t border-slate-200 dark:border-white/10 text-center">
+              <div>
+                <p class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white transition-all duration-500" id="stat-calories">{initialFlavor.nutrition.calories}</p>
+                <p class="text-xxs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold mt-1">Calories</p>
+              </div>
+              <div>
+                <p class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white transition-all duration-500" id="stat-sugar">{initialFlavor.nutrition.sugar}</p>
+                <p class="text-xxs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold mt-1">Sugar</p>
+              </div>
+              <div>
+                <p class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white transition-all duration-500" id="stat-vitC">{initialFlavor.nutrition.vitaminC}</p>
+                <p class="text-xxs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold mt-1">Vitamin C</p>
+              </div>
+              <div>
+                <p class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white transition-all duration-500" id="stat-organic">{initialFlavor.nutrition.organic}</p>
+                <p class="text-xxs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold mt-1">Organic</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-wrap gap-4 items-center">
+          <a 
+            href="#flavors" 
+            class="px-8 py-4 text-base font-bold text-slate-900 bg-white hover:bg-slate-100 rounded-2xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg shadow-white/5"
+          >
+            {hero.primaryCta}
+          </a>
+          <a 
+            href="#process" 
+            class="px-8 py-4 text-base font-semibold text-slate-700 dark:text-white glass hover:bg-white/10 rounded-2xl transition-all duration-300 border border-white/10"
+          >
+            {hero.secondaryCta}
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Framed Bottle Display -->
+      <div class="lg:col-span-5 flex flex-col items-center justify-center order-1 lg:order-2">
+        
+        <!-- Premium Framed Card Container -->
+        <div class="relative w-full aspect-[3/4] max-w-[380px] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.8)] group">
+          
+          <!-- Gloss Overlay effect -->
+          <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 pointer-events-none z-20"></div>
+
+          <!-- Dynamic floating luxury badge inside card -->
+          <div 
+            id="hero-frame-badge" 
+            class="absolute top-6 left-6 z-30 px-3.5 py-1.5 rounded-xl text-[10px] font-black tracking-widest text-slate-950 uppercase shadow-md transition-all duration-500"
+            style={{ backgroundColor: initialFlavor.accentHex }}
+          >
+            Immune Support
+          </div>
+
+          <!-- Images loop -->
+          {flavors.map((fl, idx) => (
+            <div 
+              data-bottle-id={fl.id}
+              class={`absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out transform ${
+                idx === 0 
+                  ? 'opacity-100 scale-100 pointer-events-auto' 
+                  : 'opacity-0 scale-105 pointer-events-none'
+              }`}
+            >
+              <Image 
+                src={fl.image} 
+                alt={fl.name} 
+                width={380}
+                height={507}
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="eager"
+              />
+            </div>
+          ))}
+        </div>
+
+        <!-- Rating & Price summary below card -->
+        <div class="mt-6 flex items-center gap-6 glass border border-slate-200 dark:border-white/5 rounded-2xl px-6 py-3 w-fit">
+          <div>
+            <span class="text-2xl font-black text-slate-900 dark:text-white" id="flavor-price">{initialFlavor.price}</span>
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium ml-1">/ bottle</span>
+          </div>
+          <div class="w-px h-6 bg-slate-200 dark:bg-white/10"></div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-amber-400">★</span>
+            <span class="text-sm font-bold text-slate-900 dark:text-white" id="flavor-rating">{initialFlavor.rating}</span>
+            <span class="text-xs text-slate-500 dark:text-slate-400" id="flavor-reviews">({initialFlavor.reviewsCount} reviews)</span>
+          </div>
+        </div>
+
+        <!-- Redesigned Swappable Swatches selector -->
+        <div class="mt-8 flex justify-center gap-5 bg-slate-100/80 dark:bg-slate-950/60 px-6 py-3 rounded-full border border-slate-200 dark:border-white/5 backdrop-blur-lg">
+          {flavors.map((fl, idx) => (
+            <button
+              data-flavor-toggle={fl.id}
+              aria-label={`Switch to ${fl.name}`}
+              class={`group relative flex items-center justify-center h-11 w-11 rounded-full cursor-pointer transition-all duration-500 ${
+                idx === 0
+                  ? 'ring-2 ring-offset-2 ring-offset-slate-50 dark:ring-offset-[#0b0f19]'
+                  : 'hover:scale-105'
+              }`}
+              style={{ 
+                '--ring-color': fl.accentHex,
+                borderColor: idx === 0 ? fl.accentHex : 'transparent'
+              } as any}
+            >
+              <!-- Color Dot inside swatch -->
+              <span class="h-8 w-8 rounded-full shadow-inner transition-transform duration-300 group-hover:scale-95" style={{ backgroundColor: fl.bottleBgHex }}></span>
+              
+              <!-- Hover tooltip label -->
+              <span class="absolute -top-10 scale-0 group-hover:scale-100 bg-slate-950 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg border border-white/10 transition-all duration-300 pointer-events-none whitespace-nowrap z-30">
+                {fl.name.split(' ').slice(1).join(' ')}
+              </span>
+            </button>
+          ))}
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Client Side Interactive Swapper -->
+<script>
+  import { brandConfig } from '../data/config';
+
+  const flavors = brandConfig.flavors;
+  const heroSection = document.getElementById('hero');
+  const heroGlow = document.getElementById('hero-glow');
+  const heroHighlight = document.getElementById('hero-highlight');
+  const cardAccent = document.getElementById('card-accent');
+  const frameBadge = document.getElementById('hero-frame-badge');
+  
+  const flavorTitle = document.getElementById('flavor-title');
+  const flavorTagline = document.getElementById('flavor-tagline');
+  const flavorDesc = document.getElementById('flavor-desc');
+  const flavorBenefits = document.getElementById('flavor-benefits');
+  
+  const statCalories = document.getElementById('stat-calories');
+  const statSugar = document.getElementById('stat-sugar');
+  const statVitC = document.getElementById('stat-vitC');
+  const statOrganic = document.getElementById('stat-organic');
+  
+  const flavorPrice = document.getElementById('flavor-price');
+  const flavorRating = document.getElementById('flavor-rating');
+  const flavorReviews = document.getElementById('flavor-reviews');
+  
+  const toggleButtons = document.querySelectorAll('[data-flavor-toggle]');
+  const bottles = document.querySelectorAll('[data-bottle-id]');
+
+  // Color mapping for dynamic background gradients (supporting light/dark modes)
+  const gradientMap = {
+    'mango-fusion': {
+      bgDark: 'from-[#111827] via-[#0f172a] to-[#020617]',
+      bgLight: 'from-[#fffbeb] via-[#fef3c7] to-[#fef8e7]',
+      highlight: 'from-amber-400 to-orange-500',
+      shadow: 'text-glow-orange',
+      badge: 'Immune Support'
+    },
+    'berry-blast': {
+      bgDark: 'from-[#1e112a] via-[#120b1f] to-[#06030d]',
+      bgLight: 'from-[#fdf2f8] via-[#fce7f3] to-[#fae8ff]',
+      highlight: 'from-pink-400 to-purple-600',
+      shadow: 'text-glow-pink',
+      badge: 'Antioxidant Power'
+    },
+    'green-detox': {
+      bgDark: 'from-[#061f14] via-[#03140e] to-[#010705]',
+      bgLight: 'from-[#f0fdf4] via-[#d1fae5] to-[#ecfdf5]',
+      highlight: 'from-emerald-400 to-teal-500',
+      shadow: 'text-glow-green',
+      badge: 'Deep Detox'
+    }
+  };
+
+  toggleButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-flavor-toggle') || '';
+      const flavor = flavors.find(fl => fl.id === targetId);
+      
+      if (!flavor) return;
+
+      // Update selector swatches ring indicators
+      toggleButtons.forEach(b => {
+        b.classList.remove('ring-2', 'ring-offset-2', 'ring-offset-slate-50', 'dark:ring-offset-[#0b0f19]');
+        (b as HTMLElement).style.borderColor = 'transparent';
+      });
+      btn.classList.add('ring-2', 'ring-offset-2', 'ring-offset-slate-50', 'dark:ring-offset-[#0b0f19]');
+      (btn as HTMLElement).style.borderColor = flavor.accentHex;
+
+      // 1. Transition Background Gradient and Highlights
+      if (heroSection && targetId in gradientMap) {
+        const config = gradientMap[targetId as keyof typeof gradientMap];
+        const isDark = document.documentElement.classList.contains('dark');
+        const bgClass = isDark ? config.bgDark : config.bgLight;
+        heroSection.className = `relative min-h-screen pt-28 pb-16 flex items-center overflow-hidden transition-all duration-1000 bg-gradient-to-br ${bgClass}`;
+        
+        if (heroHighlight) {
+          heroHighlight.className = `font-black text-transparent bg-clip-text bg-gradient-to-r ${config.highlight} transition-all duration-1000 ${config.shadow} font-sans uppercase text-6xl md:text-8xl`;
+        }
+
+        if (frameBadge) {
+          frameBadge.textContent = config.badge;
+          frameBadge.style.backgroundColor = flavor.accentHex;
+        }
+      }
+
+      if (heroGlow) {
+        heroGlow.style.background = `radial-gradient(circle, ${flavor.accentHex} 0%, transparent 70%)`;
+      }
+      if (cardAccent) {
+        cardAccent.style.background = `radial-gradient(circle, ${flavor.accentHex} 0%, transparent 70%)`;
+      }
+
+      // 2. Animate Bottle Images (scale-in / fade)
+      bottles.forEach(bottle => {
+        const bottleId = bottle.getAttribute('data-bottle-id');
+        if (bottleId === targetId) {
+          bottle.className = 'absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out transform opacity-100 scale-100 translate-y-0 pointer-events-auto';
+        } else {
+          bottle.className = 'absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out transform opacity-0 scale-105 translate-y-4 pointer-events-none';
+        }
+      });
+
+      // 3. Update Text Content with crossfade
+      const fadeElements = [
+        flavorTitle, flavorTagline, flavorDesc, flavorBenefits,
+        statCalories, statSugar, statVitC, statOrganic,
+        flavorPrice, flavorRating, flavorReviews
+      ];
+
+      fadeElements.forEach(el => el?.classList.add('opacity-0', 'translate-y-2', 'transition-all', 'duration-300'));
+
+      setTimeout(() => {
+        if (flavorTitle) flavorTitle.textContent = flavor.name;
+        if (flavorTagline) {
+          flavorTagline.textContent = flavor.tagline;
+          flavorTagline.style.color = flavor.accentHex;
+        }
+        if (flavorDesc) flavorDesc.textContent = flavor.description;
+        
+        // Rebuild benefits
+        if (flavorBenefits) {
+          flavorBenefits.innerHTML = flavor.benefits.map((benefit) => `
+            <span class="text-xs font-semibold px-3.5 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-700 dark:text-slate-200 rounded-xl transition-all duration-300 hover:bg-slate-200 dark:hover:bg-white/10">
+              ✨ ${benefit}
+            </span>
+          `).join('');
+        }
+
+        // Stats
+        if (statCalories) statCalories.textContent = flavor.nutrition.calories.toString();
+        if (statSugar) statSugar.textContent = flavor.nutrition.sugar;
+        if (statVitC) statVitC.textContent = flavor.nutrition.vitaminC;
+        if (statOrganic) statOrganic.textContent = flavor.nutrition.organic;
+
+        // Pricing / reviews
+        if (flavorPrice) flavorPrice.textContent = flavor.price;
+        if (flavorRating) flavorRating.textContent = flavor.rating.toString();
+        if (flavorReviews) flavorReviews.textContent = `(${flavor.reviewsCount} reviews)`;
+
+        // Fade back in
+        fadeElements.forEach(el => {
+          el?.classList.remove('opacity-0', 'translate-y-2');
+        });
+      }, 300);
+
+    });
+  });
+
+  // Re-trigger layout gradient updates when theme flips
+  document.addEventListener('theme-changed', () => {
+    const activeBtn = document.querySelector('[data-flavor-toggle].ring-2') as HTMLButtonElement;
+    if (activeBtn) {
+      const targetId = activeBtn.getAttribute('data-flavor-toggle') || '';
+      const flavor = flavors.find(fl => fl.id === targetId);
+      if (flavor && targetId in gradientMap) {
+        const config = gradientMap[targetId as keyof typeof gradientMap];
+        const isDark = document.documentElement.classList.contains('dark');
+        const bgClass = isDark ? config.bgDark : config.bgLight;
+        if (heroSection) {
+          heroSection.className = `relative min-h-screen pt-28 pb-16 flex items-center overflow-hidden transition-all duration-1000 bg-gradient-to-br ${bgClass}`;
+        }
+      }
+    }
+  });
+
+  // Trigger initial selection to properly set the theme-based background gradient on load
+  const initialActiveBtn = document.querySelector('[data-flavor-toggle].ring-2') as HTMLButtonElement;
+  if (initialActiveBtn) {
+    initialActiveBtn.click();
+  }
+</script>

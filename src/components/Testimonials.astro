@@ -1,0 +1,159 @@
+---
+import { brandConfig } from '../data/config';
+import { Image } from 'astro:assets';
+const { testimonials } = brandConfig;
+---
+
+<section id="testimonials" class="py-24 relative overflow-hidden bg-gradient-to-b from-slate-50 to-slate-100 dark:from-[#0a0d14] dark:to-[#0b0f19]">
+  <!-- Glow Backgrounds -->
+  <div class="absolute right-[-10%] top-[20%] w-[450px] h-[450px] rounded-full bg-pink-500/5 blur-[120px] pointer-events-none"></div>
+  <div class="absolute left-[-10%] bottom-[20%] w-[450px] h-[450px] rounded-full bg-amber-500/5 blur-[120px] pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+    
+    <!-- Section Title -->
+    <div class="text-center max-w-3xl mx-auto mb-20 reveal-on-scroll">
+      <span class="text-xs font-bold tracking-widest text-pink-400 uppercase bg-pink-400/10 px-4 py-1.5 rounded-full">
+        Real Experiences
+      </span>
+      <h2 class="text-4xl md:text-5xl font-black mt-6 mb-6 leading-tight text-slate-900 dark:text-white font-display">
+        Loved by the Wild Pack
+      </h2>
+      <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+        See how daily raw nutrients are transforming energy levels, skin health, and fitness performance.
+      </p>
+    </div>
+
+    <!-- Testimonials Slider Frame -->
+    <div class="relative max-w-4xl mx-auto reveal-on-scroll">
+      
+      <!-- Outer Slider Container -->
+      <div class="overflow-hidden relative rounded-3xl border border-slate-200 dark:border-white/10 glass dark:glass-dark shadow-xl shadow-slate-200/50 dark:shadow-[0_30px_60px_rgba(0,0,0,0.6)]">
+        
+        <div class="flex transition-transform duration-700 ease-out" id="testimonial-slider" style="transform: translateX(0%);">
+          {testimonials.map((t, idx) => (
+            <div class="w-full flex-shrink-0 p-8 md:p-16 flex flex-col items-center text-center space-y-6">
+              
+              <!-- Star Ratings -->
+              <div class="flex gap-1 text-amber-400 text-lg">
+                {Array.from({ length: t.rating }).map(() => (
+                  <span>★</span>
+                ))}
+              </div>
+
+              <!-- Comment Copy -->
+              <blockquote class="text-xl md:text-2xl font-medium text-slate-800 dark:text-white italic leading-relaxed font-display">
+                "{t.comment}"
+              </blockquote>
+
+              <!-- Avatar & Bio Details -->
+              <div class="flex items-center gap-4 mt-4">
+                <Image 
+                  src={t.avatar} 
+                  alt={t.name} 
+                  width={56}
+                  height={56}
+                  class="w-14 h-14 rounded-full object-cover border-2 border-white/20 shadow-md"
+                />
+                <div class="text-left">
+                  <h4 class="font-bold text-slate-900 dark:text-white text-base leading-tight">{t.name}</h4>
+                  <p class="text-xs text-pink-400 font-semibold uppercase mt-0.5 tracking-wider">{t.role}</p>
+                </div>
+              </div>
+
+            </div>
+          ))}
+        </div>
+
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button 
+        id="prev-testimonial"
+        aria-label="Previous Testimonial"
+        class="absolute left-[-20px] md:left-[-30px] top-1/2 transform -translate-y-1/2 h-12 w-12 rounded-full glass hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-800 dark:text-white transition-all cursor-pointer hover:scale-105 z-20"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+      </button>
+
+      <button 
+        id="next-testimonial"
+        aria-label="Next Testimonial"
+        class="absolute right-[-20px] md:right-[-30px] top-1/2 transform -translate-y-1/2 h-12 w-12 rounded-full glass hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-800 dark:text-white transition-all cursor-pointer hover:scale-105 z-20"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
+
+      <!-- Bottom Pagination Dots -->
+      <div class="flex justify-center gap-2 mt-8">
+        {testimonials.map((_, idx) => (
+          <button
+            data-dot-index={idx}
+            aria-label={`Go to slide ${idx + 1}`}
+            class={`h-2.5 transition-all duration-300 rounded-full cursor-pointer ${
+              idx === 0 ? 'w-8 bg-pink-500' : 'w-2.5 bg-slate-300 dark:bg-white/20 hover:bg-slate-400 dark:hover:bg-white/40'
+            }`}
+          ></button>
+        ))}
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  let activeIndex = 0;
+  const slider = document.getElementById('testimonial-slider');
+  const prevBtn = document.getElementById('prev-testimonial');
+  const nextBtn = document.getElementById('next-testimonial');
+  const dots = document.querySelectorAll('[data-dot-index]');
+  const totalSlides = dots.length;
+
+  function updateSlider() {
+    if (!slider) return;
+    slider.style.transform = `translateX(-${activeIndex * 100}%)`;
+
+    // Update Pagination Dots active state
+    dots.forEach((dot, idx) => {
+      if (idx === activeIndex) {
+        dot.className = 'h-2.5 w-8 bg-pink-500 transition-all duration-300 rounded-full cursor-pointer';
+      } else {
+        dot.className = 'h-2.5 w-2.5 bg-slate-300 dark:bg-white/20 hover:bg-slate-400 dark:hover:bg-white/40 transition-all duration-300 rounded-full cursor-pointer';
+      }
+    });
+  }
+
+  // Next Slide Action
+  nextBtn?.addEventListener('click', () => {
+    activeIndex = (activeIndex + 1) % totalSlides;
+    updateSlider();
+  });
+
+  // Prev Slide Action
+  prevBtn?.addEventListener('click', () => {
+    activeIndex = (activeIndex - 1 + totalSlides) % totalSlides;
+    updateSlider();
+  });
+
+  // Dot Pagination Action
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const idxStr = dot.getAttribute('data-dot-index');
+      if (idxStr !== null) {
+        activeIndex = parseInt(idxStr);
+        updateSlider();
+      }
+    });
+  });
+
+  // Auto Play Timer
+  setInterval(() => {
+    activeIndex = (activeIndex + 1) % totalSlides;
+    updateSlider();
+  }, 8000);
+</script>

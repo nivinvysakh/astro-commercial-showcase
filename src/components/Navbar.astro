@@ -1,0 +1,332 @@
+---
+import { brandConfig } from '../data/config';
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 px-4 py-4 md:px-8 transition-all duration-300" id="main-header">
+  <div class="max-w-7xl mx-auto glass rounded-2xl px-6 py-4 flex items-center justify-between transition-all duration-300">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white hover:opacity-90 transition-opacity">
+      <span class="text-glow-orange text-slate-900 dark:text-white">{brandConfig.logo}</span>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="/#flavors" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">Our Flavors</a>
+      <a href="/#features" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">Benefits</a>
+      <a href="/#process" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">Our Process</a>
+      <a href="/#quiz" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">Match Quiz</a>
+      <a href="/#testimonials" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">Reviews</a>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="hidden md:flex items-center gap-6">
+      
+      <!-- Theme Switcher Button -->
+      <button 
+        id="theme-toggle" 
+        class="h-10 w-10 rounded-xl glass hover:bg-white/10 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+        aria-label="Toggle Theme"
+      >
+        <!-- Sun Icon -->
+        <svg id="theme-icon-sun" class="hidden h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+        </svg>
+        <!-- Moon Icon -->
+        <svg id="theme-icon-moon" class="hidden h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+        <!-- Laptop (System) Icon -->
+        <svg id="theme-icon-system" class="hidden h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect width="20" height="14" x="2" y="3" rx="2" ry="2"></rect>
+          <path d="M8 21h8M12 17v4"></path>
+        </svg>
+      </button>
+
+      <!-- Shopping Bag -->
+      <a href="/buy" class="relative cursor-pointer hover:scale-105 transition-transform" id="cart-icon" aria-label="Cart">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1,0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0,1-1.12-1.243l1.264-12A1.125 1.125 0 0,1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1,1-.75 0 .375.375 0 0,1 .75 0Zm7.5 0a.375.375 0 1,1-.75 0 .375.375 0 0,1 .75 0Z" />
+        </svg>
+        <span class="absolute -top-1.5 -right-1.5 bg-amber-500 text-slate-900 text-[10px] font-black h-4 w-4 rounded-full flex items-center justify-center scale-0 transition-transform duration-300" id="cart-badge">0</span>
+      </a>
+
+      <a 
+        href="/#flavors" 
+        class="relative inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl hover:from-amber-600 hover:to-orange-700 transition-all duration-300 shadow-[0_0_15px_rgba(245,158,11,0.3)] hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] transform hover:-translate-y-0.5"
+      >
+        Order Now
+      </a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button 
+      class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5 focus:outline-none z-50 cursor-pointer"
+      id="mobile-menu-toggle"
+      aria-label="Toggle Menu"
+    >
+      <span class="w-6 h-0.5 bg-slate-900 dark:bg-white transition-transform duration-300 rounded" id="bar1"></span>
+      <span class="w-6 h-0.5 bg-slate-900 dark:bg-white transition-opacity duration-300 rounded" id="bar2"></span>
+      <span class="w-6 h-0.5 bg-slate-900 dark:bg-white transition-transform duration-300 rounded" id="bar3"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div 
+    class="fixed inset-0 bg-white/95 dark:bg-[#0b0f19]/95 backdrop-blur-lg md:hidden flex flex-col items-center justify-center gap-8 transition-all duration-500 opacity-0 pointer-events-none z-45 px-6"
+    id="mobile-dropdown"
+  >
+    <!-- Top Bar with Logo & Dedicated Close 'X' Button -->
+    <div class="absolute top-6 left-6 right-6 flex items-center justify-between">
+      <a href="/" class="mobile-link text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <span>{brandConfig.logo}</span>
+      </a>
+      <button
+        id="mobile-menu-close"
+        type="button"
+        class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-all active:scale-95 shadow-sm"
+        aria-label="Close Menu"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <a href="/#flavors" class="mobile-link text-2xl font-bold text-slate-800 dark:text-slate-200 hover:text-orange-600 dark:hover:text-white">Our Flavors</a>
+    <a href="/#features" class="mobile-link text-2xl font-bold text-slate-800 dark:text-slate-200 hover:text-orange-600 dark:hover:text-white">Benefits</a>
+    <a href="/#process" class="mobile-link text-2xl font-bold text-slate-800 dark:text-slate-200 hover:text-orange-600 dark:hover:text-white">Our Process</a>
+    <a href="/#quiz" class="mobile-link text-2xl font-bold text-slate-800 dark:text-slate-200 hover:text-orange-600 dark:hover:text-white">Match Quiz</a>
+    <a href="/#testimonials" class="mobile-link text-2xl font-bold text-slate-800 dark:text-slate-200 hover:text-orange-600 dark:hover:text-white">Reviews</a>
+    
+    <!-- Mobile Cart Link -->
+    <a href="/buy" class="mobile-link text-2xl font-bold text-amber-400 hover:text-white flex items-center gap-2">
+      Shopping Cart (<span id="mobile-cart-badge">0</span>)
+    </a>
+
+
+    <a 
+      href="/#flavors" 
+      class="mobile-link inline-flex items-center justify-center px-8 py-3.5 text-base font-bold text-white bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl shadow-lg shadow-orange-500/20"
+    >
+      Order Now
+    </a>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('main-header');
+  const toggleBtn = document.getElementById('mobile-menu-toggle');
+  const closeBtn = document.getElementById('mobile-menu-close');
+  const dropdown = document.getElementById('mobile-dropdown');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+  
+  // Icon bar animations
+  const bar1 = document.getElementById('bar1');
+  const bar2 = document.getElementById('bar2');
+  const bar3 = document.getElementById('bar3');
+
+  // Change header background on scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      header?.classList.add('py-2');
+      header?.firstElementChild?.classList.remove('glass');
+      header?.firstElementChild?.classList.add('bg-slate-100/80', 'dark:bg-slate-950/80', 'backdrop-blur-md', 'border-b', 'border-slate-200/50', 'dark:border-white/5');
+    } else {
+      header?.classList.remove('py-2');
+      header?.firstElementChild?.classList.add('glass');
+      header?.firstElementChild?.classList.remove('bg-slate-100/80', 'dark:bg-slate-950/80', 'backdrop-blur-md', 'border-b', 'border-slate-200/50', 'dark:border-white/5');
+    }
+  });
+
+  function closeMobileMenu() {
+    dropdown?.classList.add('opacity-0', 'pointer-events-none');
+    dropdown?.classList.remove('opacity-100');
+    document.body.style.overflow = 'auto';
+    
+    // Reset Menu Icon
+    bar1?.classList.remove('rotate-45', 'translate-y-2');
+    bar2?.classList.remove('opacity-0');
+    bar3?.classList.remove('-rotate-45', '-translate-y-2');
+  }
+
+  function openMobileMenu() {
+    dropdown?.classList.remove('opacity-0', 'pointer-events-none');
+    dropdown?.classList.add('opacity-100');
+    document.body.style.overflow = 'hidden';
+    
+    // Animate Menu Icon to X
+    bar1?.classList.add('rotate-45', 'translate-y-2');
+    bar2?.classList.add('opacity-0');
+    bar3?.classList.add('-rotate-45', '-translate-y-2');
+  }
+
+  // Toggle Mobile Menu
+  toggleBtn?.addEventListener('click', () => {
+    const isOpen = dropdown?.classList.contains('opacity-100');
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+
+  closeBtn?.addEventListener('click', closeMobileMenu);
+
+  // Close Mobile Menu on link click
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  // Shopping cart state & badge logic using localStorage
+  const cartBadge = document.getElementById('cart-badge');
+  const mobileCartBadge = document.getElementById('mobile-cart-badge');
+  const cartIcon = document.getElementById('cart-icon');
+
+  function getCart() {
+    try {
+      return JSON.parse(localStorage.getItem('panda-cart') || '{}');
+    } catch {
+      return {};
+    }
+  }
+
+  function saveCart(cart: Record<string, number>) {
+    localStorage.setItem('panda-cart', JSON.stringify(cart));
+  }
+
+  function updateCartBadge() {
+    const cart = getCart();
+    let totalItems = 0;
+    for (const qty of Object.values(cart)) {
+      totalItems += Number(qty);
+    }
+
+    // Update Desktop Badge
+    if (cartBadge) {
+      cartBadge.textContent = totalItems.toString();
+      if (totalItems > 0) {
+        cartBadge.classList.remove('scale-0');
+        cartBadge.classList.add('scale-100');
+      } else {
+        cartBadge.classList.remove('scale-100');
+        cartBadge.classList.add('scale-0');
+      }
+    }
+
+    // Update Mobile Badge
+    if (mobileCartBadge) {
+      mobileCartBadge.textContent = totalItems.toString();
+    }
+  }
+
+  // Initial load
+  updateCartBadge();
+
+  // Listen for add-to-cart events
+  document.addEventListener('add-to-cart', () => {
+    updateCartBadge();
+
+    // Shake desktop icon effect
+    if (cartIcon) {
+      cartIcon.classList.add('animate-bounce');
+      setTimeout(() => {
+        cartIcon.classList.remove('animate-bounce');
+      }, 500);
+    }
+  });
+
+  // Listen for changes from other pages
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'panda-cart') {
+      updateCartBadge();
+    }
+  });
+
+  // Theme switcher implementation
+  const themeToggle = document.getElementById('theme-toggle');
+  const iconSun = document.getElementById('theme-icon-sun');
+  const iconMoon = document.getElementById('theme-icon-moon');
+  const iconSystem = document.getElementById('theme-icon-system');
+  const mobileThemeButtons = document.querySelectorAll('[data-mobile-theme]');
+
+  type Theme = 'light' | 'dark' | 'system';
+
+  function getTheme(): Theme {
+    return (localStorage.getItem('panda-theme') as Theme) || 'dark';
+  }
+
+  function applyTheme(theme: Theme) {
+    const root = document.documentElement;
+    
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else if (theme === 'light') {
+      root.classList.remove('dark');
+    } else {
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (systemDark) {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+    }
+
+    localStorage.setItem('panda-theme', theme);
+    updateToggleUI(theme);
+    
+    // Dispatch custom event to notify other components (e.g. Hero background)
+    document.dispatchEvent(new CustomEvent('theme-changed'));
+  }
+
+  function updateToggleUI(theme: Theme) {
+    iconSun?.classList.add('hidden');
+    iconMoon?.classList.add('hidden');
+    iconSystem?.classList.add('hidden');
+
+    if (theme === 'light') {
+      iconSun?.classList.remove('hidden');
+    } else if (theme === 'dark') {
+      iconMoon?.classList.remove('hidden');
+    } else {
+      iconSystem?.classList.remove('hidden');
+    }
+
+    mobileThemeButtons.forEach(btn => {
+      const mode = btn.getAttribute('data-mobile-theme');
+      if (mode === theme) {
+        btn.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 text-slate-950 dark:text-white cursor-pointer transition-all shadow-sm';
+      } else {
+        btn.className = 'px-4 py-2 rounded-xl text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-all';
+      }
+    });
+  }
+
+  themeToggle?.addEventListener('click', () => {
+    const current = getTheme();
+    let next: Theme = 'dark';
+    if (current === 'dark') next = 'light';
+    else if (current === 'light') next = 'system';
+    else next = 'dark';
+    
+    applyTheme(next);
+  });
+
+  mobileThemeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetTheme = btn.getAttribute('data-mobile-theme') as Theme;
+      if (targetTheme) {
+        applyTheme(targetTheme);
+      }
+    });
+  });
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if (getTheme() === 'system') {
+      applyTheme('system');
+    }
+  });
+
+  // Load initial theme
+  applyTheme(getTheme());
+</script>

@@ -1,0 +1,89 @@
+---
+import { brandConfig } from "../data/config";
+import "../styles/global.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = `${brandConfig.name} - ${brandConfig.tagline}`,
+	description = brandConfig.description,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+
+		<!-- Inline theme loader to prevent FOUC -->
+		<script is:inline>
+			const theme = localStorage.getItem("panda-theme") || "dark";
+			if (theme === "dark") {
+				document.documentElement.classList.add("dark");
+			} else if (theme === "light") {
+				document.documentElement.classList.remove("dark");
+			} else {
+				const systemDark = window.matchMedia(
+					"(prefers-color-scheme: dark)",
+				).matches;
+				if (systemDark) {
+					document.documentElement.classList.add("dark");
+				} else {
+					document.documentElement.classList.remove("dark");
+				}
+			}
+		</script>
+
+		<!-- Open Graph / SEO -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content="/images/mango-fusion.jpg" />
+
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body
+		class="bg-slate-50 text-slate-900 dark:bg-[#0b0f19] dark:text-[#f1f5f9] antialiased selection:bg-amber-500 selection:text-slate-900"
+	>
+		<slot />
+
+		<!-- Intersection Observer Script for Reveal Animations -->
+		<script>
+			const revealElements =
+				document.querySelectorAll(".reveal-on-scroll");
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add("is-visible");
+							// Stop observing once visible
+							observer.unobserve(entry.target);
+						}
+					});
+				},
+				{
+					threshold: 0.1,
+					rootMargin: "0px 0px -50px 0px",
+				},
+			);
+
+			revealElements.forEach((el) => observer.observe(el));
+		</script>
+	</body>
+</html>
