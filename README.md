@@ -20,24 +20,31 @@ Designed for beverage, food, wellness, and luxury consumer goods brands that nee
 🔗 **Live Demo**: [**https://astrocommercialshowcase.netlify.app**](https://astrocommercialshowcase.netlify.app)
 
 ### 🏠 Home & Dynamic Product Swapper
+
 ![Home Preview](Samples/Home.png)
 
 ### 🧃 Flavors & Nutrition Showcase
+
 ![Our Flavors](Samples/Our%20Flavors.png)
 
 ### 🌿 Brand Benefits & Pillars
+
 ![Benefits](Samples/Benefits.png)
 
 ### 🚜 Farm-to-Bottle Process Timeline
+
 ![Process](Samples/Process.png)
 
 ### 🧪 Interactive Match Quiz
+
 ![Match Quiz](Samples/Match%20Quiz.png)
 
 ### ⭐ Reviews & Footer
+
 ![Reviews and Footer](Samples/Reviews%20and%20Footer.png)
 
 ### 🚨 Themed 404 Error Page
+
 ![404 Error Page](Samples/404.png)
 
 ---
@@ -215,7 +222,83 @@ All commands are run from the project root:
 
 ---
 
-## 🚢 Testing CI Workflows Locally (`act`)
+## 🐳 Docker Setup
+
+This project includes Dockerfile and docker-compose configuration for containerized development and production deployment.
+
+### Quick Start with Docker Compose
+
+The easiest way to run the application in Docker:
+
+```bash
+# Build and start the container
+docker-compose up -d
+
+# Access the app at http://localhost:80 (or http://localhost:8080 for dev)
+```
+
+### Building the Docker Image
+
+Build the production-ready image:
+
+```bash
+# Build with default tag
+docker build -t panda-juices:latest .
+
+# Run the container
+docker run -p 80:80 panda-juices:latest
+
+# Access at http://localhost
+```
+
+### Docker Compose Configuration
+
+The `docker-compose.yml` sets up:
+
+- **Web service**: Astro application built and served via Nginx
+- **Port mapping**: Port 80 (production) exposed
+- **Volume mounting**: Optional for development (modify `docker-compose.yml` if needed)
+
+View logs:
+
+```bash
+docker-compose logs -f
+```
+
+Stop containers:
+
+```bash
+docker-compose down
+```
+
+### Development with Docker
+
+For development with hot-reload:
+
+```bash
+# Build development image (modify Dockerfile to expose port 4321)
+docker build -t panda-juices:dev -f Dockerfile.dev .
+
+# Run with volume mount for live reload
+docker run -p 4321:4321 -v $(pwd)/src:/app/src panda-juices:dev npm run dev
+```
+
+> 💡 **Tip**: Create a `Dockerfile.dev` in the project root if you need a dedicated development image with different entrypoint and exposed ports.
+
+### Nginx Configuration
+
+The included `nginx.conf` provides:
+
+- Reverse proxy configuration
+- Static file caching headers
+- Gzip compression
+- Security headers
+
+Customize server settings in `nginx.conf` before building.
+
+---
+
+### 🍉 Testing CI Workflows Locally (`act`)
 
 You can test the GitHub Actions workflow locally using [act](https://github.com/nektos/act):
 
