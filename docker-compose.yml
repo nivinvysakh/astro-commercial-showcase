@@ -1,0 +1,30 @@
+services:
+  # -------------------------------------------------------------
+  # DEV CONTAINER
+  # URL: http://localhost:4321
+  # -------------------------------------------------------------
+  Commercial-Website-dev:
+    image: node:22-alpine
+    container_name: Commercial-Website-dev
+    working_dir: /app
+    ports:
+      - "4321:4321"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 4321"
+
+  # -------------------------------------------------------------
+  # 📦 PRODUCTION CONTAINER
+  # URL: http://localhost:8080
+  # -------------------------------------------------------------
+  commercial-website-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: commercial-website-prod
+    ports:
+      - "8080:80"
+    restart: unless-stopped
